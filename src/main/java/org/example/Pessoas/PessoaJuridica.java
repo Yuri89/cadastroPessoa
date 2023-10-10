@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class PessoaJuridica extends Pessoa{
 
     public String cnpj;
-    public LocalDate dataRegis;
+    public LocalDate dateNasc;
 
     public float CalcularImposto(float rendimento) {
 

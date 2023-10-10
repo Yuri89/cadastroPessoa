@@ -22,6 +22,7 @@ public class Main {
         Scanner leitor = new Scanner(System.in);
         String opcao;
 
+        System.out.println("Seja Bem vindo ao cadastro de pessoas juridica e fisica!");
 
         do {
 
@@ -45,8 +46,9 @@ public class Main {
                                 PessoaFisica novaPf = new PessoaFisica();
                                 Endereco novoEndPf = new Endereco();
 
+                                leitor.nextLine();
                                 System.out.println("\nDigite o nome:");
-                                novaPf.nome = leitor.next();
+                                novaPf.nome = leitor.nextLine();
 
                                 System.out.println("\nDigite o cpf:");
                                 novaPf.cpf = leitor.next();
@@ -63,20 +65,19 @@ public class Main {
                                 Period idade = Period.between(novaPf.dateNasc, LocalDate.now());
 
                                 if (idade.getYears() >= 18){
-                                    System.out.println("maior de idade");
+                                    System.out.println("Idade valida!");
                                 }else {
-                                    System.out.println("menor de idade, idade Invalida!");
+                                    System.out.println("Idade invalida!");
                                     break;
                                 }
 
-
-
-
+                                leitor.nextLine();
                                 System.out.println("\nDigite o logradouro:");
-                                novoEndPf.logradouro = leitor.next();
+                                novoEndPf.logradouro = leitor.nextLine();
+
 
                                 System.out.println("\nDigite o numero:");
-                                novaPf.rendimento = leitor.nextInt();
+                                novoEndPf.numero = leitor.nextInt();
 
                                 System.out.println("\nEste endereço é comercial: S/N");
                                 String endCom = leitor.next();
@@ -102,6 +103,9 @@ public class Main {
                                 System.out.println("Cadastro realizado com sucesso!!");
 
 
+                                System.out.println("digite ok para continuar");
+                                leitor.next();
+
                                 break;
 
                             case "2":
@@ -109,26 +113,27 @@ public class Main {
                                 if (listPf.size() > 0){
 
                                     for (PessoaFisica cadaPf : listPf){
-                                        System.out.println(
+                                        System.out.println("________________________________________________________________________________________"+
                                                 "\nNome " + cadaPf.nome +
-                                                "\nCPF " + cadaPf.nome +
+                                                "\nCPF " + cadaPf.cpf +
                                                 "\nData de Nascimento: " +
                                                 cadaPf.dateNasc.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+
                                                 "\nImposto a ser pago: " + metodoPf.CalcularImposto(cadaPf.rendimento) +
                                                 "\nEndereço: " + cadaPf.endereco.logradouro + "-" + cadaPf.endereco.numero +
                                                 "\n"+
-                                                "Aperte Enter para continuar"
+                                                "________________________________________________________________________________________"+ "\n"
 
                                         );
-                                        leitor.next();
-                                        break;
+
+
                                     }
 
 
                                 } else {
-                                    System.out.println("\n lista está vazia parceiro, pode dando meia volta!");
+                                    System.out.println("\n A lista está vazia!");
                                 }
-
+                                System.out.println("digite ok para continuar");
+                                leitor.next();
                                 break;
 
                             case "0":
@@ -136,7 +141,7 @@ public class Main {
                                 break;
 
                             default:
-
+                                System.out.println("\n\nIncorreto!\n\n");
                                 break;
                         }
 
@@ -160,8 +165,9 @@ public class Main {
                                 PessoaJuridica novaPj = new PessoaJuridica();
                                 Endereco novoEndPj = new Endereco();
 
+                                leitor.nextLine();
                                 System.out.println("\nDigite o nome:");
-                                novaPj.nome = leitor.next();
+                                novaPj.nome = leitor.nextLine();
 
                                 System.out.println("\nDigite o cnpj:");
                                 novaPj.cnpj = leitor.next();
@@ -171,14 +177,23 @@ public class Main {
 
 
                                 System.out.println("\nDigite Data de Registro: (dd/mm/aaaa)");
-                                novaPj.dataRegis = LocalDate.parse(leitor.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                                novaPj.dateNasc = LocalDate.parse(leitor.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
+                                Period idade = Period.between(novaPj.dateNasc, LocalDate.now());
 
+                                if (idade.getYears() >= 18){
+                                    System.out.println("Idade valida!");
+                                }else {
+                                    System.out.println("Idade invalida!");
+                                    break;
+                                }
+
+                                leitor.nextLine();
                                 System.out.println("\nDigite o logradouro:");
-                                novoEndPj.logradouro = leitor.next();
+                                novoEndPj.logradouro = leitor.nextLine();
 
                                 System.out.println("\nDigite o numero:");
-                                novaPj.rendimento = leitor.nextInt();
+                                novoEndPj.numero = leitor.nextInt();
 
                                 System.out.println("\nEste endereço é comercial: S/N");
                                 String endCom = leitor.next();
@@ -205,6 +220,9 @@ public class Main {
                                 System.out.println("Cadastro realizado com sucesso!!");
 
 
+                                System.out.println("digite ok para continuar");
+                                leitor.next();
+
                                 break;
 
                             case "2":
@@ -212,27 +230,27 @@ public class Main {
                                 if (listPj.size() > 0){
 
                                     for (PessoaJuridica cadaPj : listPj){
-                                        System.out.println(
-                                                "\nNome " + cadaPj.nome +
-                                                        "\nCPF " + cadaPj.nome +
+                                        System.out.println("________________________________________________________________________________________" +
+                                                        "\nNome " + cadaPj.nome +
+                                                        "\nCPF " + cadaPj.cnpj +
                                                         "\nData de Registro: " +
-                                                        cadaPj.dataRegis.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+
+                                                        cadaPj.dateNasc.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+
                                                         "\nImposto a ser pago: " + metodoPj.CalcularImposto(cadaPj.rendimento) +
                                                         "\nEndereço: " + cadaPj.endereco.logradouro + "-" + cadaPj.endereco.numero +
                                                         "\n"+
-                                                        "Aperte qualquer coisa para continuar"
+                                                        "________________________________________________________________________________________" + "\n"
 
 
                                         );
-                                        leitor.next();
-                                        break;
+
                                     }
 
 
                                 } else {
                                     System.out.println("\n lista está vazia parceiro, pode dando meia volta!");
                                 }
-
+                                System.out.println("digite ok para continuar");
+                                leitor.next();
                                 break;
 
                             case "0":
@@ -249,15 +267,18 @@ public class Main {
 
                     break;
                 case "0":
-                    System.out.println("0 selecionado");
+                    System.out.println("Saindo do sistema");
+
                     break;
 
                 default:
-                    System.out.println("default selecionado");
-                    break;
+                    System.out.println("escolha uma das opções!!");
+
             }
 
         }while( !opcao.equals("0"));
+
+        System.out.println("sistema OFF");
     }
 }
 
