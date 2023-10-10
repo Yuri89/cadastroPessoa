@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.Endereco.Endereco;
 import org.example.Pessoas.PessoaFisica;
+import org.example.Pessoas.PessoaJuridica;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -13,7 +14,9 @@ public class Main {
     public static void main(String[] args) {
 
         ArrayList<PessoaFisica> listPf = new ArrayList<>();
+        ArrayList<PessoaJuridica> listPj = new ArrayList<>();
         PessoaFisica metodoPf = new PessoaFisica();
+        PessoaJuridica metodoPj = new PessoaJuridica();
 
 
         Scanner leitor = new Scanner(System.in);
@@ -50,9 +53,11 @@ public class Main {
 
                                 System.out.println("\nDigite o rendimento:");
                                 novaPf.rendimento = leitor.nextFloat();
+                                System.out.println(novaPf.rendimento);
 
 
                                 System.out.println("\nDigite Data de nascimento: (dd/mm/aaaa)");
+
                                 novaPf.dateNasc = LocalDate.parse(leitor.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
                                 Period idade = Period.between(novaPf.dateNasc, LocalDate.now());
@@ -81,10 +86,8 @@ public class Main {
                                     if (endCom.equals("S") || endCom.equals("s")) {
                                         novoEndPf.endComercial = true;
 
-                                    }
-                                    if (endCom.equals("N") || endCom.equals("n")) {
+                                    } else if (endCom.equals("N") || endCom.equals("n")) {
                                         novoEndPf.endComercial = false;
-
                                     }
                                     else {
                                         System.out.println("\nIncorreto");
@@ -116,9 +119,9 @@ public class Main {
                                                 "\n"+
                                                 "Aperte Enter para continuar"
 
-
                                         );
                                         leitor.next();
+                                        break;
                                     }
 
 
@@ -142,7 +145,108 @@ public class Main {
 
                     break;
                 case "2":
-                    System.out.println("2 selecionado");
+
+                    String opcaoPj;
+
+                    do {
+
+
+                        System.out.println("Pessoa Juridica\n\nEscolha um opção: 1 - Cadastrar Pessoa Juridica/ 2 - Listar Pessoa Juridica/ 0 - Voltar");
+                        opcaoPj = leitor.next();
+
+                        switch (opcaoPj){
+                            case "1":
+
+                                PessoaJuridica novaPj = new PessoaJuridica();
+                                Endereco novoEndPj = new Endereco();
+
+                                System.out.println("\nDigite o nome:");
+                                novaPj.nome = leitor.next();
+
+                                System.out.println("\nDigite o cnpj:");
+                                novaPj.cnpj = leitor.next();
+
+                                System.out.println("\nDigite o rendimento:");
+                                novaPj.rendimento = leitor.nextFloat();
+
+
+                                System.out.println("\nDigite Data de Registro: (dd/mm/aaaa)");
+                                novaPj.dataRegis = LocalDate.parse(leitor.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+
+                                System.out.println("\nDigite o logradouro:");
+                                novoEndPj.logradouro = leitor.next();
+
+                                System.out.println("\nDigite o numero:");
+                                novaPj.rendimento = leitor.nextInt();
+
+                                System.out.println("\nEste endereço é comercial: S/N");
+                                String endCom = leitor.next();
+
+
+
+                                if (endCom.equals("S") || endCom.equals("s")) {
+                                    novoEndPj.endComercial = true;
+
+                                }
+                                else if(endCom.equals("N") || endCom.equals("n")) {
+                                    novoEndPj.endComercial = false;
+                                }else {
+                                    System.out.println("\nIncorreto");
+                                    break;
+                                }
+
+
+
+                                novaPj.endereco = novoEndPj;
+
+                                listPj.add(novaPj);
+
+                                System.out.println("Cadastro realizado com sucesso!!");
+
+
+                                break;
+
+                            case "2":
+
+                                if (listPj.size() > 0){
+
+                                    for (PessoaJuridica cadaPj : listPj){
+                                        System.out.println(
+                                                "\nNome " + cadaPj.nome +
+                                                        "\nCPF " + cadaPj.nome +
+                                                        "\nData de Registro: " +
+                                                        cadaPj.dataRegis.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+
+                                                        "\nImposto a ser pago: " + metodoPj.CalcularImposto(cadaPj.rendimento) +
+                                                        "\nEndereço: " + cadaPj.endereco.logradouro + "-" + cadaPj.endereco.numero +
+                                                        "\n"+
+                                                        "Aperte qualquer coisa para continuar"
+
+
+                                        );
+                                        leitor.next();
+                                        break;
+                                    }
+
+
+                                } else {
+                                    System.out.println("\n lista está vazia parceiro, pode dando meia volta!");
+                                }
+
+                                break;
+
+                            case "0":
+
+                                break;
+
+                            default:
+
+                                break;
+                        }
+
+
+                    } while ( !opcaoPj.equals("0") );
+
                     break;
                 case "0":
                     System.out.println("0 selecionado");
@@ -156,3 +260,4 @@ public class Main {
         }while( !opcao.equals("0"));
     }
 }
+
